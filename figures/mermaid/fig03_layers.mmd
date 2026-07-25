@@ -1,0 +1,14 @@
+flowchart TB
+    O["Outputs &amp; interactions — artifacts, actions"]
+    B["Agentic behavior — prompts, tools, plans, execution"]
+    S["Technical platform — infra, APIs, identity, data, runtime"]
+    P["Process &amp; operating model"]
+    G["Governance &amp; accountability"]
+    PU["Purpose &amp; constraints"]
+    O --> B --> S --> P --> G --> PU
+    classDef fast fill:#ffe0b2,stroke:#e65100,color:#000;
+    classDef mid fill:#fff9c4,stroke:#f57f17,color:#000;
+    classDef slow fill:#bbdefb,stroke:#0d47a1,color:#000;
+    class O,B fast;
+    class S mid;
+    class P,G,PU slow;

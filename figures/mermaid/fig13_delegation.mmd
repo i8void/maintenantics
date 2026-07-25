@@ -1,0 +1,11 @@
+flowchart LR
+    U["Human initiator — full authority"] -->|"scope attenuates"| A1["Agent 1"]
+    A1 -->|"scope attenuates"| A2["Agent 2"]
+    A2 -->|"scope attenuates"| A3["Agent 3 — narrowest scope"]
+    A3 -.->|"attribution preserved end to end"| U
+    W["A link that silently widens scope<br/>= Coupling + Action failure (§12)"]
+    A2 -.->|"must never happen"| W
+    classDef ok fill:#c8e6c9,stroke:#1b5e20,color:#000;
+    classDef bad fill:#ffcdd2,stroke:#b71c1c,color:#000;
+    class U,A1,A2,A3 ok;
+    class W bad;

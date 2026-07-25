@@ -1,0 +1,13 @@
+flowchart TB
+    M["Model — slow asset, retrained on long cycles"]
+    D["Data — slow as corpus, fast as runtime context"]
+    I["Infrastructure — slow platform asset"]
+    F(("Inference — one fused act"))
+    M --> F
+    D --> F
+    I --> F
+    F --> OUT["Agent behavior on the surface — failure of any one constituent arrives as 'the agent failed'"]
+    classDef c fill:#e1bee7,stroke:#4a148c,color:#000;
+    classDef f fill:#d1c4e9,stroke:#311b92,color:#000;
+    class M,D,I c;
+    class F f;

@@ -1,0 +1,10 @@
+flowchart TB
+    START["Agentic artifact produced"] --> Q{"Which regime?"}
+    Q -->|"Throwaway — demo, draft, prototype, mock"| T["Reliability is the wrong question<br/>optimize speed &amp; fidelity, then discard"]
+    Q -->|"Durable — transaction, service, pipeline, decision"| D["Reliability discipline applies<br/>fully and without exception"]
+    T -.->|"regime transition: shipped without rebuild"| X["Durable context, discipline NOT done"]
+    X --> FAIL["Failure surfaces later — blamed on the latest change,<br/>not on the crossing that made it fragile"]
+    classDef good fill:#c8e6c9,stroke:#1b5e20,color:#000;
+    classDef bad fill:#ffcdd2,stroke:#b71c1c,color:#000;
+    class T,D good;
+    class X,FAIL bad;
