@@ -113,6 +113,10 @@ xychart-beta
 
 *Figure 1. The multiplicative coupling of Statement 1. The system (0.57) lands below both of its required factors, not between them. A strong technical part cannot lift the product above the weak human part.*
 
+![Response surface of SR = HR times TR over both factors](figures/fig_sr_hr_tr.png)
+
+*Figure 2. The full response surface behind Figure 1. Colour is $SR = HR \cdot TR$ over every combination of the two required factors; the curved lines are contours of constant $SR$, and the 0.57 contour runs through the worked point (0.60, 0.95). The shape is the whole point: raising the strong factor slides you along a contour, not up it — only lifting the weaker factor moves $SR$ upward.*
+
 Hardin's framing predates agentic AI by decades and was developed for systems where humans and technology jointly determined an outcome. The relation is the cleanest two factor decomposition for systems with both human and technical elements, and it has held up across decades of industrial reliability practice. Importing it here costs nothing; rebuilding it would cost everything.
 
 ## Statement 1
@@ -175,7 +179,7 @@ flowchart TB
     class P,G,PU slow;
 ```
 
-*Figure 2. The shearing layers of §3, fast (orange, top) resting on slow (blue, bottom). Each layer rests on the one beneath it. Axiom 1 is the rule that arrows may carry adaptation downward but never let a fast layer rewrite a slow one.*
+*Figure 3. The shearing layers of §3, fast (orange, top) resting on slow (blue, bottom). Each layer rests on the one beneath it. Axiom 1 is the rule that arrows may carry adaptation downward but never let a fast layer rewrite a slow one.*
 
 ## Axiom 1: Fast layers must not destabilize slow layers
 
@@ -221,7 +225,7 @@ flowchart TB
     class F f;
 ```
 
-*Figure 3. The dependency triangle of §4. Three things Brand would place on different layers fire together at inference time. Their reliability cannot be decomposed and re-multiplied; the fusion is what is reliable or not, and it has to be observed where it arrives.*
+*Figure 4. The dependency triangle of §4. Three things Brand would place on different layers fire together at inference time. Their reliability cannot be decomposed and re-multiplied; the fusion is what is reliable or not, and it has to be observed where it arrives.*
 
 This has consequences for the rest of this paper.
 
@@ -295,6 +299,10 @@ The same observation cuts harder for redundancy, which is where engineers usuall
 
 The §5 worked example is the technological-axis arithmetic going honestly wrong because a second axis was hidden behind the same numbers. §6 develops this generalisation explicitly.
 
+![System reliability R to the n for several per-component reliabilities](figures/fig_power_n.png)
+
+*Figure 5. How the product $SR=\prod_{i=1}^{n} R_i$ behaves when $n$ identical required components each have reliability $R$. Each curve fixes one value of $R$; the dashed line is an illustrative floor $SR_{min}=0.90$. Components that look reliable in isolation still fall through the floor as occurrences accumulate — even $R=0.97$ crosses it by the fourth required step. This is the visual form of Axiom 2: every required dependency weakly reduces reliability, and the reduction compounds.*
+
 ## Axiom 2: Required dependency is reliability debt
 
 Every additional required dependency weakly reduces modeled reliability unless it is perfect.
@@ -356,7 +364,11 @@ quadrantChart
     "Fragile infra": [0.28, 0.8]
 ```
 
-*Figure 4. The two axes of Statement 5. Traditional engineering lives on the top edge where $R_c = 1$ and the scalar model is exact. Agentic systems drop off that edge; a high-$R_t$ system that hallucinates (bottom-right) and a coherent system on fragile infrastructure (top-left) are different failures, and reporting only $R_t$ hides one of them.*
+*Figure 6. The two axes of Statement 5. Traditional engineering lives on the top edge where $R_c = 1$ and the scalar model is exact. Agentic systems drop off that edge; a high-$R_t$ system that hallucinates (bottom-right) and a coherent system on fragile infrastructure (top-left) are different failures, and reporting only $R_t$ hides one of them.*
+
+![Effective reliability versus Rt for several values of Rc](figures/fig_rt_rc.png)
+
+*Figure 7. The multiplicative cost of the coherence axis, drawn as the product $R_t \cdot R_c$. Each line fixes $R_c$ and sweeps $R_t$. Traditional decomposable systems ride the top line ($R_c = 1$); as coherence falls, the whole line pivots down. A system reported at $R_t = 0.9$ actually delivers $0.54$ once $R_c = 0.6$ — the vertical gap between the lines is exactly the amount by which reporting only the technological axis overstates $SR$.*
 
 ## Composition rules
 
@@ -443,7 +455,7 @@ xychart-beta
     line [0.970, 0.941, 0.913, 0.885, 0.859, 0.833, 0.808, 0.784, 0.760, 0.737]
 ```
 
-*Figure 5. Statement 6 made visible. A single step at 0.97 looks reliable; the curve is what "count occurrences, not component types" means. Five required actions already sit at ~0.86, ten below 0.74 — each added exposure is a multiplication, not an addition.*
+*Figure 8. Statement 6 made visible. A single step at 0.97 looks reliable; the curve is what "count occurrences, not component types" means. Five required actions already sit at ~0.86, ten below 0.74 — each added exposure is a multiplication, not an addition.*
 
 ## Statement 6
 
@@ -727,7 +739,7 @@ xychart-beta
     bar [0.100, 0.065, 0.105]
 ```
 
-*Figure 6. The §11 worked example. On modeled terms the agentic system improves (0.065 < 0.10, second bar below the baseline line). Add the unmodeled exposure $F_U$ that §12 insists on naming and the same system crosses back above baseline (0.105 > 0.10). The arithmetic is honest only when every term is on the page.*
+*Figure 9. The §11 worked example. On modeled terms the agentic system improves (0.065 < 0.10, second bar below the baseline line). Add the unmodeled exposure $F_U$ that §12 insists on naming and the same system crosses back above baseline (0.105 > 0.10). The arithmetic is honest only when every term is on the page.*
 
 ## Proportionality bound
 
@@ -793,6 +805,10 @@ The condition for improved reliability becomes:
 $$
 F_A(x)+F_C(x)+F_U(x)<F_{base}(1-d(x))
 $$
+
+![Decision region showing where agentic AI improves or worsens reliability](figures/fig_decision_region.png)
+
+*Figure 10. The improvement condition as a map. The horizontal axis is the fraction of baseline failure that survives, $d(x)$; the vertical axis is the total introduced failure $I = F_A + F_C + F_U$. Each line is the break-even boundary $I = F_{base}(1-d)$ for one baseline; below a line the agentic system improves reliability, above it the system worsens. The two markers replay the §11 worked example at $d = 0.30$: the modelled introduced failure (0.035) sits in the improve region, but adding the honest $F_U$ lifts $I$ to 0.075 — across the $F_{base}=0.10$ boundary into "worsens". The honesty flip of §11 is exactly this boundary crossing.*
 
 ## Statement 10
 
@@ -866,7 +882,7 @@ pie showData
     "beta — remaining reliability space" : 0.825
 ```
 
-*Figure 7. The partition of §13.1–§13.2: $F_{base} + F_A + F_C + F_U + \beta = 1$. The known system failure $F_S$ is the first three slices; $F_U$ is the grey zone that exists at $T_0$ already; $\beta$ (the large slice) is the capacity not yet spent on failure. The discipline is to spend $\beta$ deliberately rather than let $F_U$ quietly consume it.*
+*Figure 11. The partition of §13.1–§13.2: $F_{base} + F_A + F_C + F_U + \beta = 1$. The known system failure $F_S$ is the first three slices; $F_U$ is the grey zone that exists at $T_0$ already; $\beta$ (the large slice) is the capacity not yet spent on failure. The discipline is to spend $\beta$ deliberately rather than let $F_U$ quietly consume it.*
 
 ## Statement 12
 
@@ -921,7 +937,7 @@ xychart-beta
     line [0.50, 0.44, 0.37, 0.29, 0.20, 0.10]
 ```
 
-*Figure 8. Statement 13 across time, three lines from a shared starting $\beta$. Top: $E_{in} > E_{entropy}$ — surplus maintenance pays down debt and $\beta$ grows (left column of the table). Middle: $E_{in} = E_{entropy}$ — breakeven, $\beta$ flat but fragile. Bottom: $E_{in} < E_{entropy}$ — entropy wins, $\beta$ shrinks invisibly while roadmaps still look good, until $F_U$ dominates.*
+*Figure 12. Statement 13 across time, three lines from a shared starting $\beta$. Top: $E_{in} > E_{entropy}$ — surplus maintenance pays down debt and $\beta$ grows (left column of the table). Middle: $E_{in} = E_{entropy}$ — breakeven, $\beta$ flat but fragile. Bottom: $E_{in} < E_{entropy}$ — entropy wins, $\beta$ shrinks invisibly while roadmaps still look good, until $F_U$ dominates.*
 
 # 14. Gall's warning: complexity must evolve
 
@@ -1062,7 +1078,7 @@ flowchart LR
     class W bad;
 ```
 
-*Figure 9. Multi-hop delegation. Scope must attenuate at every hop (solid arrows narrowing), and attribution must trace back to the originating human (dashed return). A middle link that widens scope or loses the originator is §12's Coupling and Action failure materialised.*
+*Figure 13. Multi-hop delegation. Scope must attenuate at every hop (solid arrows narrowing), and attribution must trace back to the originating human (dashed return). A middle link that widens scope or loses the originator is §12's Coupling and Action failure materialised.*
 
 Memory, retrieval, and tools deserve the same skepticism. Brodt et al. [7] document how each of these three substrates becomes a control channel rather than a data channel under attack: a payload deposited in agent memory survives across sessions and re-emerges on later inference; poisoned content in a retrieval store is fetched back into a prompt that should have been stable; tool integrations let a single compromise propagate laterally to other agents and other users. The reliability response is structural, not novel. Memory and retrieval substrates are part of the surface that has to be kept untrusted by default, sanitised before retrieval, and reset on a schedule that does not depend on attacker quiescence. Tool reach is part of the standing authority that §16 already argued should not stand. The kill chain is not a new failure class. It is the documented case for why the existing enforcement boundaries have to hold across time as well as across calls.
 
@@ -1073,7 +1089,7 @@ flowchart LR
     class A,B,C,D,E,F,G k;
 ```
 
-*Figure 10. The seven-stage promptware kill chain of Brodt et al. [7], mapping onto §12's Action, Coupling, and Emergent classes composed across multiple inferences. Persistence rides the memory and retrieval substrates; lateral movement rides shared tools — the same mechanisms §4 relied on to separate layers, now used to migrate attacker state across them in time.*
+*Figure 14. The seven-stage promptware kill chain of Brodt et al. [7], mapping onto §12's Action, Coupling, and Emergent classes composed across multiple inferences. Persistence rides the memory and retrieval substrates; lateral movement rides shared tools — the same mechanisms §4 relied on to separate layers, now used to migrate attacker state across them in time.*
 
 In broad terms, the questions worth answering for any agentic system are familiar from the protection literature: who is the agent acting as, what is it permitted to do, what side effects require explicit approval, what constraints on time and resources can it not lift on its own, and what trace remains after it acts. The agentic case adds urgency to these questions, not novelty.
 
@@ -1249,7 +1265,11 @@ xychart-beta
     line [1.000, 0.607, 0.368, 0.223, 0.135, 0.082, 0.050]
 ```
 
-*Figure 11. The constant-failure-rate model of §19.2. Because the curve is convex, cutting exposure time $\tau$ moves reliability up the steep left part of the curve. This is the reliability sense of "faster": less time spent in a state where failure can arrive, distinct from the throughput sense in §19.1.*
+*Figure 15. The constant-failure-rate model of §19.2. Because the curve is convex, cutting exposure time $\tau$ moves reliability up the steep left part of the curve. This is the reliability sense of "faster": less time spent in a state where failure can arrive, distinct from the throughput sense in §19.1.*
+
+![Exposure-time reliability curves for several failure rates lambda](figures/fig_exposure.png)
+
+*Figure 16. The same $R(\tau)=e^{-\lambda\tau}$ across a family of failure rates $\lambda$. Two variables set the reliability: which curve you are on ($\lambda$) and where along it you sit ($\tau$). The shaded band is a cut in exposure from $\tau_b$ to $\tau_a$; the arrow marks the reliability recovered, $E(\Delta\tau)=e^{-\lambda\tau_a}-e^{-\lambda\tau_b}$ — the exposure-time term that reappears in the §23 decision test. The steeper the curve (higher $\lambda$), the more a given cut in exposure buys.*
 
 ## Statement 19
 
@@ -1362,6 +1382,10 @@ only after checking:
 $$
 SR_{agentic}\geq SR_{min}
 $$
+
+![Contour of value per unit time over reliability and time](figures/fig_value.png)
+
+*Figure 17. The compressed metric $V = SR \cdot Q / \tau$ (with $Q = 1$) drawn as a field over reliability and time. Value grows toward the bottom-right — high $SR$, low $\tau$ — and the diagonal contours are lines of equal value, so a fast unreliable system and a slow reliable one can share one. The constraint of Statement 21 is the vertical cut: everything to the left of $SR_{min}$ is inadmissible however high $V$ climbs, which is why value optimization must be constrained, not maximized freely.*
 
 ## Statement 21
 
@@ -1538,7 +1562,7 @@ flowchart TB
     class X,FAIL bad;
 ```
 
-*Figure 12. Statement 22. Both regimes are legitimate — the throwaway branch is a correct decision, not recklessness. The disaster is the dashed edge: an artifact correct in the throwaway regime moved across the boundary into the durable regime without being rebuilt for it.*
+*Figure 18. Statement 22. Both regimes are legitimate — the throwaway branch is a correct decision, not recklessness. The disaster is the dashed edge: an artifact correct in the throwaway regime moved across the boundary into the durable regime without being rebuilt for it.*
 
 ## Statement 22
 
