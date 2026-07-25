@@ -103,17 +103,11 @@ $$
 
 This is already uncomfortable. A highly reliable technical system does not automatically produce a highly reliable total system. The human and technical parts are coupled. If both are required, both matter.
 
-```mermaid
-xychart-beta
-    title "SR is not the reliability of the best part (HR=0.60, TR=0.95)"
-    x-axis ["Human HR", "Technology TR", "System SR"]
-    y-axis "Reliability" 0 --> 1
-    bar [0.60, 0.95, 0.57]
-```
+![](figures/fig01_hardin_bar.png){ width=75% }
 
 *Figure 1. The multiplicative coupling of Statement 1. The system (0.57) lands below both of its required factors, not between them. A strong technical part cannot lift the product above the weak human part.*
 
-![Response surface of SR = HR times TR over both factors](figures/fig_sr_hr_tr.png)
+![](figures/fig_sr_hr_tr.png){ width=62% }
 
 *Figure 2. The full response surface behind Figure 1. Colour is $SR = HR \cdot TR$ over every combination of the two required factors; the curved lines are contours of constant $SR$, and the 0.57 contour runs through the worked point (0.60, 0.95). The shape is the whole point: raising the strong factor slides you along a contour, not up it — only lifting the weaker factor moves $SR$ upward.*
 
@@ -162,22 +156,7 @@ We can think in reliability layers:
 | Agentic behavior | Stuff (fast layer) | Prompts, tools, plans, model behavior, task execution |
 | Outputs and interactions | Fast surface layer | Produced artifacts, recommendations, and actions |
 
-```mermaid
-flowchart TB
-    O["Outputs &amp; interactions — artifacts, actions"]
-    B["Agentic behavior — prompts, tools, plans, execution"]
-    S["Technical platform — infra, APIs, identity, data, runtime"]
-    P["Process &amp; operating model"]
-    G["Governance &amp; accountability"]
-    PU["Purpose &amp; constraints"]
-    O --> B --> S --> P --> G --> PU
-    classDef fast fill:#ffe0b2,stroke:#e65100,color:#000;
-    classDef mid fill:#fff9c4,stroke:#f57f17,color:#000;
-    classDef slow fill:#bbdefb,stroke:#0d47a1,color:#000;
-    class O,B fast;
-    class S mid;
-    class P,G,PU slow;
-```
+![](figures/fig03_layers.png){ width=40% }
 
 *Figure 3. The shearing layers of §3, fast (orange, top) resting on slow (blue, bottom). Each layer rests on the one beneath it. Axiom 1 is the rule that arrows may carry adaptation downward but never let a fast layer rewrite a slow one.*
 
@@ -209,21 +188,7 @@ The "Agentic behavior" row in §3's table is shorthand. In practice, a single ac
 
 Wendt [6] names this directly: the AI is a fusion of model, data, and infrastructure, and the reliability of an agentic system therefore depends on data provenance, versioning, traceability, and auditability across all three.
 
-```mermaid
-flowchart TB
-    M["Model — slow asset, retrained on long cycles"]
-    D["Data — slow as corpus, fast as runtime context"]
-    I["Infrastructure — slow platform asset"]
-    F(("Inference — one fused act"))
-    M --> F
-    D --> F
-    I --> F
-    F --> OUT["Agent behavior on the surface — failure of any one constituent arrives as 'the agent failed'"]
-    classDef c fill:#e1bee7,stroke:#4a148c,color:#000;
-    classDef f fill:#d1c4e9,stroke:#311b92,color:#000;
-    class M,D,I c;
-    class F f;
-```
+![](figures/fig04_fusion.png){ width=62% }
 
 *Figure 4. The dependency triangle of §4. Three things Brand would place on different layers fire together at inference time. Their reliability cannot be decomposed and re-multiplied; the fusion is what is reliable or not, and it has to be observed where it arrives.*
 
@@ -299,7 +264,7 @@ The same observation cuts harder for redundancy, which is where engineers usuall
 
 The §5 worked example is the technological-axis arithmetic going honestly wrong because a second axis was hidden behind the same numbers. §6 develops this generalisation explicitly.
 
-![System reliability R to the n for several per-component reliabilities](figures/fig_power_n.png)
+![](figures/fig_power_n.png){ width=80% }
 
 *Figure 5. How the product $SR=\prod_{i=1}^{n} R_i$ behaves when $n$ identical required components each have reliability $R$. Each curve fixes one value of $R$; the dashed line is an illustrative floor $SR_{min}=0.90$. Components that look reliable in isolation still fall through the floor as occurrences accumulate — even $R=0.97$ crosses it by the fourth required step. This is the visual form of Axiom 2: every required dependency weakly reduces reliability, and the reduction compounds.*
 
@@ -349,24 +314,11 @@ For traditional decomposable systems, $R_c = 1$. The components are distinct, th
 
 For agentic AI, $R_c < 1$ in general. The model, the data, and the infrastructure (§4) fuse at inference time; what looks like distinct steps may share a substrate; what looks like multiple decisions may be one underlying behaviour repeated. The scalar form is no longer enough. Reliability is two-dimensional.
 
-```mermaid
-quadrantChart
-    title Reliability is two-dimensional - Rt vs Rc
-    x-axis Low Rt --> High Rt
-    y-axis Low Rc --> High Rc
-    quadrant-1 Fully reliable target
-    quadrant-2 Coherent, fragile
-    quadrant-3 Fails on both
-    quadrant-4 Stable, incoherent
-    "Decomposable system": [0.85, 0.88]
-    "Agentic, governed": [0.78, 0.66]
-    "Hallucinating": [0.82, 0.28]
-    "Fragile infra": [0.28, 0.8]
-```
+![](figures/fig06_quadrant.png){ width=62% }
 
 *Figure 6. The two axes of Statement 5. Traditional engineering lives on the top edge where $R_c = 1$ and the scalar model is exact. Agentic systems drop off that edge; a high-$R_t$ system that hallucinates (bottom-right) and a coherent system on fragile infrastructure (top-left) are different failures, and reporting only $R_t$ hides one of them.*
 
-![Effective reliability versus Rt for several values of Rc](figures/fig_rt_rc.png)
+![](figures/fig_rt_rc.png){ width=80% }
 
 *Figure 7. The multiplicative cost of the coherence axis, drawn as the product $R_t \cdot R_c$. Each line fixes $R_c$ and sweeps $R_t$. Traditional decomposable systems ride the top line ($R_c = 1$); as coherence falls, the whole line pivots down. A system reported at $R_t = 0.9$ actually delivers $0.54$ once $R_c = 0.6$ — the vertical gap between the lines is exactly the amount by which reporting only the technological axis overstates $SR$.*
 
@@ -447,13 +399,7 @@ $$
 
 That is a different system.
 
-```mermaid
-xychart-beta
-    title "Counting occurrences: reliability of a=1..10 required agentic steps at A=0.97"
-    x-axis "Number of required agentic actions (a)" [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    y-axis "System reliability A^a" 0 --> 1
-    line [0.970, 0.941, 0.913, 0.885, 0.859, 0.833, 0.808, 0.784, 0.760, 0.737]
-```
+![](figures/fig08_decay.png){ width=75% }
 
 *Figure 8. Statement 6 made visible. A single step at 0.97 looks reliable; the curve is what "count occurrences, not component types" means. Five required actions already sit at ~0.86, ten below 0.74 — each added exposure is a multiplication, not an addition.*
 
@@ -731,13 +677,7 @@ Since $0.105>0.10$, the same system now loses reliability.
 
 The numbers did not change. The honesty changed. This is what §12 exists to enforce.
 
-```mermaid
-xychart-beta
-    title "When honesty flips the inequality (baseline Fbase = 0.10)"
-    x-axis ["Baseline Fbase", "Modeled Fnew", "Honest Fnew +Fu"]
-    y-axis "Failure probability" 0 --> 0.12
-    bar [0.100, 0.065, 0.105]
-```
+![](figures/fig09_honesty.png){ width=75% }
 
 *Figure 9. The §11 worked example. On modeled terms the agentic system improves (0.065 < 0.10, second bar below the baseline line). Add the unmodeled exposure $F_U$ that §12 insists on naming and the same system crosses back above baseline (0.105 > 0.10). The arithmetic is honest only when every term is on the page.*
 
@@ -806,7 +746,7 @@ $$
 F_A(x)+F_C(x)+F_U(x)<F_{base}(1-d(x))
 $$
 
-![Decision region showing where agentic AI improves or worsens reliability](figures/fig_decision_region.png)
+![](figures/fig_decision_region.png){ width=75% }
 
 *Figure 10. The improvement condition as a map. The horizontal axis is the fraction of baseline failure that survives, $d(x)$; the vertical axis is the total introduced failure $I = F_A + F_C + F_U$. Each line is the break-even boundary $I = F_{base}(1-d)$ for one baseline; below a line the agentic system improves reliability, above it the system worsens. The two markers replay the §11 worked example at $d = 0.30$: the modelled introduced failure (0.035) sits in the improve region, but adding the honest $F_U$ lifts $I$ to 0.075 — across the $F_{base}=0.10$ boundary into "worsens". The honesty flip of §11 is exactly this boundary crossing.*
 
@@ -872,15 +812,7 @@ The unknown failure space $F_U$ can be understood as a grey zone. It exists alre
 
 A useful visualisation is a normalised vertical bar, or a horizontal stack, from $0$ to $1$, in which $F_S$, $F_U$, and $\beta$ together fill the whole system space. The discipline is to keep all three named, even when one of them is uncomfortable to admit.
 
-```mermaid
-pie showData
-    title Conservation of failure space, normalized to 1 (using the §11–§12 worked numbers)
-    "F_base — known baseline failure" : 0.100
-    "F_A — introduced agentic failure" : 0.020
-    "F_C — control / coordination failure" : 0.015
-    "F_U — unknown grey-zone failure" : 0.040
-    "beta — remaining reliability space" : 0.825
-```
+![](figures/fig11_conservation.png){ width=78% }
 
 *Figure 11. The partition of §13.1–§13.2: $F_{base} + F_A + F_C + F_U + \beta = 1$. The known system failure $F_S$ is the first three slices; $F_U$ is the grey zone that exists at $T_0$ already; $\beta$ (the large slice) is the capacity not yet spent on failure. The discipline is to spend $\beta$ deliberately rather than let $F_U$ quietly consume it.*
 
@@ -927,15 +859,7 @@ Every reliability claim made elsewhere in this paper assumes the system stays in
 
 > Reliability is consumed by entropy and replenished by maintenance energy. It stays positive only when the energy in exceeds the entropy in.
 
-```mermaid
-xychart-beta
-    title "Remaining reliability space beta over time, by energy balance"
-    x-axis "Operational time" [0, 1, 2, 3, 4, 5]
-    y-axis "beta — remaining reliability space" 0 --> 1
-    line [0.50, 0.56, 0.62, 0.68, 0.74, 0.80]
-    line [0.50, 0.50, 0.50, 0.50, 0.50, 0.50]
-    line [0.50, 0.44, 0.37, 0.29, 0.20, 0.10]
-```
+![](figures/fig12_beta.png){ width=75% }
 
 *Figure 12. Statement 13 across time, three lines from a shared starting $\beta$. Top: $E_{in} > E_{entropy}$ — surplus maintenance pays down debt and $\beta$ grows (left column of the table). Middle: $E_{in} = E_{entropy}$ — breakeven, $\beta$ flat but fragile. Bottom: $E_{in} < E_{entropy}$ — entropy wins, $\beta$ shrinks invisibly while roadmaps still look good, until $F_U$ dominates.*
 
@@ -1064,30 +988,13 @@ This argues directly for limiting the agent's *standing* authority, a point deve
 
 Multi-hop delegation is the same problem at the chain, also developed in [11]. An agent acting on behalf of a human, calling a second agent that calls a third, builds a chain that the original authorization has to traverse intact. Scope must attenuate at every hop, never expand. Attribution must be preserved end to end, so that an action at the far end of the chain can be traced back to the human who initiated it. A chain whose middle link silently widens scope, or loses the originator, is exactly §12's *Coupling failure* and *Action failure* materialised. The chain is reliable only if no link in it can elevate the authority granted to it.
 
-```mermaid
-flowchart LR
-    U["Human initiator — full authority"] -->|"scope attenuates"| A1["Agent 1"]
-    A1 -->|"scope attenuates"| A2["Agent 2"]
-    A2 -->|"scope attenuates"| A3["Agent 3 — narrowest scope"]
-    A3 -.->|"attribution preserved end to end"| U
-    W["A link that silently widens scope<br/>= Coupling + Action failure (§12)"]
-    A2 -.->|"must never happen"| W
-    classDef ok fill:#c8e6c9,stroke:#1b5e20,color:#000;
-    classDef bad fill:#ffcdd2,stroke:#b71c1c,color:#000;
-    class U,A1,A2,A3 ok;
-    class W bad;
-```
+![](figures/fig13_delegation.png){ width=100% }
 
 *Figure 13. Multi-hop delegation. Scope must attenuate at every hop (solid arrows narrowing), and attribution must trace back to the originating human (dashed return). A middle link that widens scope or loses the originator is §12's Coupling and Action failure materialised.*
 
 Memory, retrieval, and tools deserve the same skepticism. Brodt et al. [7] document how each of these three substrates becomes a control channel rather than a data channel under attack: a payload deposited in agent memory survives across sessions and re-emerges on later inference; poisoned content in a retrieval store is fetched back into a prompt that should have been stable; tool integrations let a single compromise propagate laterally to other agents and other users. The reliability response is structural, not novel. Memory and retrieval substrates are part of the surface that has to be kept untrusted by default, sanitised before retrieval, and reset on a schedule that does not depend on attacker quiescence. Tool reach is part of the standing authority that §16 already argued should not stand. The kill chain is not a new failure class. It is the documented case for why the existing enforcement boundaries have to hold across time as well as across calls.
 
-```mermaid
-flowchart LR
-    A["1 Initial access"] --> B["2 Privilege escalation"] --> C["3 Reconnaissance"] --> D["4 Persistence<br/>(via memory / retrieval)"] --> E["5 Command &amp; control"] --> F["6 Lateral movement<br/>(via shared tools)"] --> G["7 Actions on objective"]
-    classDef k fill:#ffcdd2,stroke:#b71c1c,color:#000;
-    class A,B,C,D,E,F,G k;
-```
+![](figures/fig14_killchain.png){ width=100% }
 
 *Figure 14. The seven-stage promptware kill chain of Brodt et al. [7], mapping onto §12's Action, Coupling, and Emergent classes composed across multiple inferences. Persistence rides the memory and retrieval substrates; lateral movement rides shared tools — the same mechanisms §4 relied on to separate layers, now used to migrate attacker state across them in time.*
 
@@ -1257,17 +1164,11 @@ $$
 \tau_{agentic}<\tau_{base}\Rightarrow e^{-\lambda\tau_{agentic}}>e^{-\lambda\tau_{base}}
 $$
 
-```mermaid
-xychart-beta
-    title "Exposure-time reliability R(tau) = e^(-lambda*tau), lambda = 0.5"
-    x-axis "Exposure time tau" [0, 1, 2, 3, 4, 5, 6]
-    y-axis "R(tau)" 0 --> 1
-    line [1.000, 0.607, 0.368, 0.223, 0.135, 0.082, 0.050]
-```
+![](figures/fig15_exposure.png){ width=75% }
 
 *Figure 15. The constant-failure-rate model of §19.2. Because the curve is convex, cutting exposure time $\tau$ moves reliability up the steep left part of the curve. This is the reliability sense of "faster": less time spent in a state where failure can arrive, distinct from the throughput sense in §19.1.*
 
-![Exposure-time reliability curves for several failure rates lambda](figures/fig_exposure.png)
+![](figures/fig_exposure.png){ width=80% }
 
 *Figure 16. The same $R(\tau)=e^{-\lambda\tau}$ across a family of failure rates $\lambda$. Two variables set the reliability: which curve you are on ($\lambda$) and where along it you sit ($\tau$). The shaded band is a cut in exposure from $\tau_b$ to $\tau_a$; the arrow marks the reliability recovered, $E(\Delta\tau)=e^{-\lambda\tau_a}-e^{-\lambda\tau_b}$ — the exposure-time term that reappears in the §23 decision test. The steeper the curve (higher $\lambda$), the more a given cut in exposure buys.*
 
@@ -1383,7 +1284,7 @@ $$
 SR_{agentic}\geq SR_{min}
 $$
 
-![Contour of value per unit time over reliability and time](figures/fig_value.png)
+![](figures/fig_value.png){ width=70% }
 
 *Figure 17. The compressed metric $V = SR \cdot Q / \tau$ (with $Q = 1$) drawn as a field over reliability and time. Value grows toward the bottom-right — high $SR$, low $\tau$ — and the diagonal contours are lines of equal value, so a fast unreliable system and a slow reliable one can share one. The constraint of Statement 21 is the vertical cut: everything to the left of $SR_{min}$ is inadmissible however high $V$ climbs, which is why value optimization must be constrained, not maximized freely.*
 
@@ -1549,18 +1450,7 @@ It is the demo that succeeds and gets shipped to production without being rebuil
 
 The regime confusion is the failure mode this paper is most concerned with. The throwaway regime is genuinely valuable; the durable regime is genuinely demanding; the failure happens at the boundary, when an artifact crosses from the first to the second without anyone noticing it has crossed.
 
-```mermaid
-flowchart TB
-    START["Agentic artifact produced"] --> Q{"Which regime?"}
-    Q -->|"Throwaway — demo, draft, prototype, mock"| T["Reliability is the wrong question<br/>optimize speed &amp; fidelity, then discard"]
-    Q -->|"Durable — transaction, service, pipeline, decision"| D["Reliability discipline applies<br/>fully and without exception"]
-    T -.->|"regime transition: shipped without rebuild"| X["Durable context, discipline NOT done"]
-    X --> FAIL["Failure surfaces later — blamed on the latest change,<br/>not on the crossing that made it fragile"]
-    classDef good fill:#c8e6c9,stroke:#1b5e20,color:#000;
-    classDef bad fill:#ffcdd2,stroke:#b71c1c,color:#000;
-    class T,D good;
-    class X,FAIL bad;
-```
+![](figures/fig18_regime.png){ width=60% }
 
 *Figure 18. Statement 22. Both regimes are legitimate — the throwaway branch is a correct decision, not recklessness. The disaster is the dashed edge: an artifact correct in the throwaway regime moved across the boundary into the durable regime without being rebuilt for it.*
 
