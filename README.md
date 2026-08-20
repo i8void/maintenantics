@@ -2,6 +2,10 @@
 
 Things to reason about, or a tribute to John Gall.
 
+## Essays
+
+**The Twelve Meters** — where automation actually ends, and what the last stretch runs on. A printer, a coffee machine, and a bee. [Read the essay](the_twelve_meters.md)
+
 ## Papers
 
 **Agentic AI, Reliability, and Complexity** (v0.3) — a reusable engineering discipline for reasoning about reliability when agentic AI enters a sociotechnical system. Hardin's multiplicative reliability, Brand's layers, Gall's evolution of complexity, applied to agents.
