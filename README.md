@@ -11,4 +11,4 @@ Things to reason about, or a tribute to John Gall.
 
 ## Contact
 
-Tangenta IT Consulting AB · Marc Schneider · marc.schneider@tangenta.se · tangenta.se
+Tangenta IT Consulting AB · Marc Schneider · hello@tangenta.se · tangenta.se
